@@ -130,6 +130,14 @@ void LevelB::update(float delta_time)
         survive_level = true;
         std::cout << "Player has reached the top of the map!" << std::endl;
     }
+    
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+        Entity* enemy = &m_game_state.enemies[i];
+        if (m_game_state.player->check_collision(enemy)) {
+            got_diddled = true;
+        }
+    }
+    
 }
 
 

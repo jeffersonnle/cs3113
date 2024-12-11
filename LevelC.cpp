@@ -108,9 +108,7 @@ void LevelC::initialise()
     m_game_state.enemies[1].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[1].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
 
-    m_game_state.enemies[2].set_position(glm::vec3(9.0f, -1.2f, 0.0f));
-    //m_game_state.enemies[1].set_movement(glm::vec3(0.0f));
-    m_game_state.enemies[2].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+    
 
     /**
      BGM and SFX
@@ -142,7 +140,14 @@ void LevelC::update(float delta_time)
         std::cout << "Player has reached the top of the map!" << std::endl;
         
     }
-
+    
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+        Entity* enemy = &m_game_state.enemies[i];
+        if (m_game_state.player->check_collision(enemy)) {
+            got_diddled = true;
+        }
+    }
+    
 
 }
 
@@ -154,32 +159,4 @@ void LevelC::render(ShaderProgram* g_shader_program)
     for (int i = 0; i < ENEMY_COUNT; i++)
         m_game_state.enemies[i].render(g_shader_program);
 
-    /*
-    if (survive_level == true) {
-        GLuint victory_texture_id = Utility::load_texture(VICTORY_FILEPATH);
-        glm::mat4 victory_model_matrix = glm::mat4(1.0f);
-
-        victory_model_matrix = glm::translate(victory_model_matrix, glm::vec3(0.0f, 0.0f, 0.0f)); // Adjust as necessary
-        victory_model_matrix = glm::scale(victory_model_matrix, glm::vec3(3.0f, 3.0f, 1.0f)); // Scale it to fit
-
-        g_shader_program->set_model_matrix(victory_model_matrix);
-
-        float vertices[] = { -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5 };
-        float tex_coords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0 };
-
-        glBindTexture(GL_TEXTURE_2D, victory_texture_id);
-
-        glVertexAttribPointer(g_shader_program->get_position_attribute(), 2, GL_FLOAT, false, 0, vertices);
-        glEnableVertexAttribArray(g_shader_program->get_position_attribute());
-
-        glVertexAttribPointer(g_shader_program->get_tex_coordinate_attribute(), 2, GL_FLOAT, false, 0, tex_coords);
-        glEnableVertexAttribArray(g_shader_program->get_tex_coordinate_attribute());
-
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        glDisableVertexAttribArray(g_shader_program->get_position_attribute());
-        glDisableVertexAttribArray(g_shader_program->get_tex_coordinate_attribute());
-
-    }
-    */
 }

@@ -115,12 +115,6 @@ void LevelA::update(float delta_time)
         m_game_state.enemies[i].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
     }
     
-    /*
-    if (m_game_state.player->get_position().y == 1.0f) {
-        set_survived();
-    }
-    m_game_state.player->get_position();
-    */
 
     float player_y = m_game_state.player->get_position().y;
     float top_boundary = 0.0f;  // Top of the map
@@ -131,6 +125,23 @@ void LevelA::update(float delta_time)
         survive_level = true;
         std::cout << "Player has reached the top of the map!" << std::endl;
     }
+
+    /*
+    for (Entity* enem in m_game_state.enemies) {
+        if (m_game_state.player->check_collision()) {
+
+        }
+    }
+    */
+
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+        Entity* enemy = &m_game_state.enemies[i];
+        if (m_game_state.player->check_collision(enemy)) {
+            got_diddled = true;
+        }
+    }
+
+    
 
     
 }

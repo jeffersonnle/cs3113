@@ -138,24 +138,28 @@
     <ClCompile Include="LevelA.cpp" />
     <ClCompile Include="LevelB.cpp" />
     <ClCompile Include="LevelC.cpp" />
+    <ClCompile Include="LoseScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="WinScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="LevelA.h" />
     <ClInclude Include="LevelB.h" />
     <ClInclude Include="LevelC.h" />
+    <ClInclude Include="LoseScreen.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Utility.h" />
+    <ClInclude Include="WinScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

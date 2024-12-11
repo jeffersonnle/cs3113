@@ -28,7 +28,8 @@
 #include "LevelA.h"
 #include "LevelB.h"
 #include "LevelC.h"
-//#include "WinScreen.h"
+#include "WinScreen.h"
+#include "LoseScreen.h"
 
 // ————— CONSTANTS ————— //
 constexpr int WINDOW_WIDTH = 640,
@@ -61,13 +62,14 @@ LevelA* g_level_a;
 LevelB* g_level_b;
 LevelC* g_level_c;
 MenuScreen* g_menu_screen;
-//WinScreen* g_win_screen;
+WinScreen* g_win_screen;
+LoseScreen* g_lose_screen;
 
 GLuint font_texture_id;
 
 
-//Scene* g_levels[5];
-Scene* g_levels[4];
+Scene* g_levels[6];
+//Scene* g_levels[4];
 
 
 SDL_Window* g_display_window;
@@ -136,7 +138,8 @@ void initialise()
     g_level_a = new LevelA();
     g_level_b = new LevelB();
     g_level_c = new LevelC();    
-    //g_win_screen = new WinScreen();
+    g_win_screen = new WinScreen();
+    g_lose_screen = new LoseScreen();
     switch_to_scene(g_level_a);
 
     
@@ -144,7 +147,8 @@ void initialise()
     g_levels[1] = g_level_a;
     g_levels[2] = g_level_b;
     g_levels[3] = g_level_c;
-    //g_levels[4] = g_win_screen;
+    g_levels[4] = g_win_screen;
+    g_levels[5] = g_lose_screen;
 
     switch_to_scene(g_levels[0]);
     //EFFECTS
@@ -275,8 +279,12 @@ void update()
     }
     
     if (g_current_scene == g_level_c && (g_level_c->get_survive_level() == true)) {
-        Utility::draw_text(&g_shader_program, font_texture_id, "VICTORYYYY!", 0.3, 0.03f, glm::vec3(g_current_scene->get_state().player->get_position().x - 2.0f, g_current_scene->get_state().player->get_position().y, 0.0f));
+        //Utility::draw_text(&g_shader_program, font_texture_id, "VICTORYYYY!", 0.3, 0.03f, glm::vec3(g_current_scene->get_state().player->get_position().x - 2.0f, g_current_scene->get_state().player->get_position().y, 0.0f));
+        switch_to_scene(g_levels[4]);
+    }
 
+    if ((g_level_a->get_got_diddled()) || g_level_b->get_got_diddled() || g_level_c->get_got_diddled()) {
+        switch_to_scene(g_levels[5]);
     }
     
 

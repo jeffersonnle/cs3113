@@ -1,3 +1,4 @@
+#include "WinScreen.h"
 #include "MenuScreen.h"
 #include "Utility.h"
 
@@ -9,31 +10,28 @@ PLATFORM_FILEPATH[] = "assets/tileset.png",
 ENEMY_FILEPATH[] = "assets/mortis.png",
 FONT_SPRITE_FILEPATH[] = "assets/font1.png";
 
-GLuint g_font_texture_id;
+GLuint g_font_texture_id2;
 
-unsigned int LEVEL_DATA1[] =
+unsigned int LEVEL_DATAWIN[] =
 {
     0, 0,
     0, 0
 };
 
-MenuScreen::~MenuScreen()
+WinScreen::~WinScreen()
 {
-    //delete[] m_game_state.enemies;
-    delete    m_game_state.player;
-    delete    m_game_state.map;
-    //Mix_FreeChunk(m_game_state.shoot_sfx);
-    //Mix_FreeMusic(m_game_state.bgm);
+    delete m_game_state.player;
+    delete m_game_state.map;
 }
 
-void MenuScreen::initialise()
+void WinScreen::initialise()
 {
     GLuint map_texture_id = Utility::load_texture("assets/tileset.png");
-    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATA1, map_texture_id, 1.0f, 4, 1);
+    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATAWIN, map_texture_id, 1.0f, 4, 1);
 
     GLuint player_texture_id = Utility::load_texture(SPRITESHEET_FILEPATH);
 
-    g_font_texture_id = Utility::load_texture(FONT_SPRITE_FILEPATH);
+    g_font_texture_id2 = Utility::load_texture(FONT_SPRITE_FILEPATH);
 
     int player_walking_animation[4][4] =
     {
@@ -45,30 +43,28 @@ void MenuScreen::initialise()
 
     glm::vec3 acceleration = glm::vec3(0.0f, -4.905f, 0.0f);
 
-
     m_game_state.player = new Entity(
         player_texture_id,         // texture id
         5.0f,                      // speed
         0.9f,                      // width
-        0.9f,                       // height
+        0.9f,                      // height
         PLAYER
     );
     m_game_state.player->set_position(glm::vec3(5.0f, -3.0f, 0.0f));
-
-  
 }
 
-void MenuScreen::update(float delta_time)
+void WinScreen::update(float delta_time)
 {
+    // Update logic if needed, e.g., player actions for exiting or restarting.
     m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
-
 }
 
-
-void MenuScreen::render(ShaderProgram* g_shader_program)
+void WinScreen::render(ShaderProgram* g_shader_program)
 {
-    Utility::draw_text(g_shader_program, g_font_texture_id, "WELCOME TO BRAWLTAG", 0.32, 0.00001f, glm::vec3(2.0f, -2.0f, 0.0f));
-    Utility::draw_text(g_shader_program, g_font_texture_id, "DON'T GET TAGGED!", 0.32, 0.03f, glm::vec3(2.0f, -3.0f, 0.0f));
-    Utility::draw_text(g_shader_program, g_font_texture_id, "ESCAPE MORTIS, FANG AND EDGAR!", 0.32, 0.03f, glm::vec3(0.1f, -4.0f, 0.0f));
-    Utility::draw_text(g_shader_program, g_font_texture_id, "press enter to begin", 0.3, 0.03f, glm::vec3(2.0f, -5.0f, 0.0f));
+    Utility::draw_text(g_shader_program, g_font_texture_id2, "CONGRATULATIONS!", 0.4, 0.00001f, glm::vec3(1.0f, -2.0f, 0.0f));
+    Utility::draw_text(g_shader_program, g_font_texture_id2, "YOU ESCAPED THE BIG 3!", 0.35, 0.03f, glm::vec3(2.0f, -3.0f, 0.0f));
+    Utility::draw_text(g_shader_program, g_font_texture_id2, "YIPPEEEEEEE!!!", 0.3, 0.03f, glm::vec3(2.0f, -5.0f, 0.0f));
+    // Uncomment if rendering map and player is necessary:
+    // m_game_state.map->render(g_shader_program);
+    // m_game_state.player->render(g_shader_program);
 }

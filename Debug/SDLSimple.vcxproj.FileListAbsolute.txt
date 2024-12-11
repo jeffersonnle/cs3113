@@ -1,0 +1,4 @@
+C:\Users\jeffe\source\repos\exercise-10-18\Debug\SDLSimple.exe
+C:\Users\jeffe\source\repos\rise_of_ai\Debug\SDLSimple.exe
+C:\Users\jeffe\source\repos\project4\Debug\SDLSimple.exe
+C:\Users\jeffe\source\repos\maze_project\Debug\SDLSimple.exe

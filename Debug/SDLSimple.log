@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\jeffe\source\repos\maze_project\main.cpp(182,30): warning C4305: 'argument': truncation from 'double' to 'float'
+  SDLSimple.vcxproj -> C:\Users\jeffe\source\repos\maze_project\Debug\SDLSimple.exe
